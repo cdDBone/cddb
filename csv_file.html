@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSVファイルの読み込みとダウンロード</title>
+    <style>
+/* テーブル全体のスタイル */
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+/* テーブルのヘッダースタイル */
+th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* テーブルのデータ行スタイル */
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    height: 30px;
+    white-space: nowrap;
+}
+
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* テーブル全体のスタイル */
+#result table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* テーブルのヘッダースタイル */
+#result th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* テーブルのデータ行スタイル */
+#result td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    height: 30px;
+    white-space: nowrap;
+}
+
+/* テーブルのデータ行の奇数行スタイル */
+#result tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* ボタンのスタイル */
+button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    background-color: #ddd;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ボタンのホバー時のスタイル */
+button:hover {
+    background-color: #f4f4f4;
+}
+
+/* ボタンが押されたときのスタイル */
+button:active {
+    background-color: #e0e0e0;
+    border-color: #aaa;
+    color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <form>
+        <h1 style="margin-bottom: 0;">ファイル加工・ダウンロード</h1>
+        <div style="margin-bottom: 20px;"><a href="./index.html">検索サイトへ</a></div>
+
+        <label for="file">CSVファイルのアップロード：</label><br>
+        <input type="file" id="file" accept=".csv"><br>
+
+        <table>
+
+            <tr>
+                <td><label for="cd">CD名：</label></td>
+                <td><input type="text" id="cd" placeholder="(必須)"><br></td>
+            </tr>
+            <tr>
+                <td><label for="song">曲名：</label></td>
+                <td><input type="text" id="song" placeholder="(必須)"></td>
+            </tr>
+            <tr>
+
+                <div class="gender-label">
+                    <td><label for="type">タイプ:</label></td>
+                    <td>
+                        <label for="album">アルバム</label>
+                        <input type="radio" id="album" name="type" value="Album" checked>
+                        <label for="single">シングル</label>
+                        <input type="radio" id="single" name="type" value="Single">
+                    </td>
+                </div>
+            </tr>
+            <tr>
+                <td><label for="artists">アーティスト:</label></td>
+                <td>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artist1" name="artist" value="重岡 大毅">
+                        <label for="artist1">重岡 大毅</label><br>
+                        
+                        <input type="checkbox" id="artist2" name="artist" value="桐山 照史">
+                        <label for="artist2">桐山 照史</label><br>
+                        
+                        <input type="checkbox" id="artist3" name="artist" value="中間 淳太">
+                        <label for="artist3">中間 淳太</label><br>
+                        
+                        <input type="checkbox" id="artist4" name="artist" value="神山 智洋">
+                        <label for="artist4">神山 智洋</label><br>
+                        
+                        <input type="checkbox" id="artist5" name="artist" value="藤井 流星">
+                        <label for="artist5">藤井 流星</label><br>
+                        
+                        <input type="checkbox" id="artist6" name="artist" value="濵田 崇裕">
+                        <label for="artist6">濵田 崇裕</label><br>
+                        
+                        <input type="checkbox" id="artist7" name="artist" value="小瀧 望<">
+                        <label for="artist7">小瀧 望</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="button" onclick="addData()">データ追加</button></td>
+                <td><button type="button" onclick="downloadCSV()">CSVダウンロード</button></td>
+            </tr>
+            <!--
+                <tr>
+                    <td><button type="button" onclick="downloadJS()">JSダウンロード</button></td>
+                </tr>
+            -->
+            </table>
+            
+        <div id="uploadedData"></div>
+    </form>
+
+    <div id="result"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="csv.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text File Generator</title>
+</head>
+<body>
+    <input type="file" id="csvFileInput" accept=".csv">
+  <br>
+  <button onclick="downloadFile()">jsファイルをダウンロード</button>
+  <button onclick="downloadFile()">jsファイルをダウンロード</button>
+  <div id="output"></div>
+
+  <script>
+    document.getElementById('csvFileInput').addEventListener('change', handleFileSelect);
+
+    // ファイルの内容
+    let fileValue = "";
+
+    function handleFileSelect(event) {
+      const fileInput = event.target;
+      const file = fileInput.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const csvData = e.target.result;
+          const parsedData = parseCSV(csvData);
+
+          // 解析されたデータを表示する例
+          displayData(parsedData);
+        };
+
+        reader.readAsText(file);
+      }
+    }
+
+    function parseCSV(csvData) {
+      const rows = csvData.split('\n');
+      const headers = rows[0].split(',');
+
+      const objects = rows.slice(1).map(row => {
+        const values = row.split(',');
+        const obj = {};
+        const array = [];
+
+        headers.forEach((header, index) => {
+            if (!values[index]) return;
+            console.log(values[index])
+            if (index <  3) {
+                obj[header.trim()] = values[index].trim();
+            } else {
+                array.push(values[index].trim());
+                
+            }
+        });
+        // オブジェクトに配列を投入
+        obj["artists".trim()] = array;
+        console.log(obj);
+
+        return obj;
+      });
+
+      return objects;
+    }
+
+    function displayData(data) {
+      fileValue = data;
+      console.log(data);
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = '<h3>Parsed CSV Data:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+    }
+
+    // ファイルをダウンロードする
+    function downloadFile() {
+      // オブジェクトを文字列に変換
+      const jsonString = JSON.stringify(fileValue);
+      const fileValueStart = "const fakeResults = ";
+      const fileValuefinish = ";";
+      const fileRender = fileValueStart + jsonString + fileValuefinish;
+
+      const blob = new Blob([fileRender], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'generated_file.js';
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

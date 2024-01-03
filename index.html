@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Database Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
+    .result {
+      margin-bottom: 12px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .link {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+/* リンクボタンのスタイル */
+.link-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4caf50;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+/* リンクボタンのホバー時のスタイル */
+.link-button:hover {
+    background-color: #2980b9;
+}
+
+/* リンクボタンのアクティブ時のスタイル */
+.link-button:active {
+    background-color: #2c3e50;
+}
+
+.link-button a {
+    color: white;
+    text-decoration: none;
+}
+
+#fileUpload {
+  display: none;
+}
+
+    
+  </style>
+</head>
+<body>
+    <div class="container">
+      <h2>Music Database Search</h2>
+      <form id="searchForm">
+        <label for="cd">CD:</label>
+        <input type="text" id="cd" name="cd" placeholder="Enter CD name">
+
+        <label for="artists">Artists (comma-separated):</label>
+        <input type="text" id="artists" name="artists" placeholder="Enter artist names">
+  
+        <label for="song">Song:</label>
+        <input type="text" id="song" name="song" placeholder="Enter song name">
+  
+        <label for="type">Type:</label>
+        <select id="type" name="type">
+          <option value="">Any</option>
+          <option value="アルバム">アルバム</option>
+          <option value="シングル">シングル</option>
+        </select>
+  
+        <button type="button" onclick="search()">Search</button>
+      </form>
+  
+      <div id="results"></div>
+    </div>
+
+    <div class="link">
+        <input type="file" id="fileUpload" accept=".csv"><button id="fileUploadButton" class="link-button">csvファイルをアップロード</button><br>
+        <button class="link-button"><a href="csv_file.html">データを作成</a></button><br>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <script src="cd_select.js"></script>
+</body>
+</html>
